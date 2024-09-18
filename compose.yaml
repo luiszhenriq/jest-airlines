@@ -1,23 +1,14 @@
 services:
-  backend:
-    build:
-      context: .
-    container_name: app
-    depends_on:
-      - postgres
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/jest_db
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgre
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - 8080:8080
-
   postgres:
-    image: 'postgres:latest'
+    image: postgres:latest
     environment:
-      - 'POSTGRES_DB=jest_db'
-      - 'POSTGRES_PASSWORD=postgre'
-      - 'POSTGRES_USER=postgres'
+      - POSTGRES_DB=jest_db
+      - POSTGRES_PASSWORD=postgre
+      - POSTGRES_USER=postgres
     ports:
       - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
