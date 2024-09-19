@@ -9,7 +9,9 @@ import br.com.luis.jest_airlines.repositories.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,22 @@ public class FlightService {
         Flight savedFlight = repository.save(newFlight);
 
         return flightResponseDTO(savedFlight);
+    }
+
+    public List<FlightResponseDTO> findAll() {
+
+        return repository.findAll()
+                .stream()
+                .map(flight -> new FlightResponseDTO(
+                        flight.getId(),
+                        flight.getNumber(),
+                        flight.getOrigin(),
+                        flight.getDestiny(),
+                        flight.getDeparture(),
+                        flight.getArrival(),
+                        flight.getDuration(),
+                        flight.getPrice()
+                )).collect(Collectors.toList());
     }
 
     public FlightResponseDTO findById(UUID id) {

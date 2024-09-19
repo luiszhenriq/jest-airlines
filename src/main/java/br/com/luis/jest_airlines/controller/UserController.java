@@ -5,10 +5,11 @@ import br.com.luis.jest_airlines.dto.user.UserRequestDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
 import br.com.luis.jest_airlines.service.UserService;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<UserResponseDTO> update(@PathVariable("id") UUID id,
                                                   @RequestBody UserUpdateDTO userUpdate) {
         return new ResponseEntity<>(service.update(id, userUpdate), HttpStatus.OK);
