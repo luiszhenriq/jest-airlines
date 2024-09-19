@@ -1,8 +1,8 @@
 package br.com.luis.jest_airlines.service;
 
-import br.com.luis.jest_airlines.dto.UserRequestDTO;
-import br.com.luis.jest_airlines.dto.UserResponseDTO;
-import br.com.luis.jest_airlines.dto.UserUpdateDTO;
+import br.com.luis.jest_airlines.dto.user.UserRequestDTO;
+import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
+import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
 import br.com.luis.jest_airlines.model.User;
 import br.com.luis.jest_airlines.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,7 @@
 package br.com.luis.jest_airlines.model;
 
 
+import br.com.luis.jest_airlines.dto.flight.FlightRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,11 +40,21 @@ public class Flight {
     @Column(nullable = false)
     private LocalDateTime arrival;
 
-    private Integer duration;
+    private String duration;
 
     @Column(nullable = false)
     private Integer price;
 
-  //  private List<Seat> seats = new ArrayList<>();
+    public Flight(FlightRequestDTO flightRequest) {
+        this.number = flightRequest.number();
+        this.origin = flightRequest.origin();
+        this.destiny = flightRequest.destiny();
+        this.departure = flightRequest.departure();
+        this.arrival = flightRequest.arrival();
+        this.duration = flightRequest.duration();
+        this.price = flightRequest.price();
+    }
+
+    //  private List<Seat> seats = new ArrayList<>();
 
 }

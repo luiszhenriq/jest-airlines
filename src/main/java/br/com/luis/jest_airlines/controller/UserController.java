@@ -1,9 +1,9 @@
 package br.com.luis.jest_airlines.controller;
 
 
-import br.com.luis.jest_airlines.dto.UserRequestDTO;
-import br.com.luis.jest_airlines.dto.UserResponseDTO;
-import br.com.luis.jest_airlines.dto.UserUpdateDTO;
+import br.com.luis.jest_airlines.dto.user.UserRequestDTO;
+import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
+import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
 import br.com.luis.jest_airlines.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

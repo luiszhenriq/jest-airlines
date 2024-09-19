@@ -1,6 +1,4 @@
-package br.com.luis.jest_airlines.dto;
-
-import br.com.luis.jest_airlines.model.UserRole;
+package br.com.luis.jest_airlines.dto.user;
 
 import java.util.Date;
 import java.util.UUID;

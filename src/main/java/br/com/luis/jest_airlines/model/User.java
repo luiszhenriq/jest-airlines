@@ -1,7 +1,7 @@
 package br.com.luis.jest_airlines.model;
 
 
-import br.com.luis.jest_airlines.dto.UserRequestDTO;
+import br.com.luis.jest_airlines.dto.user.UserRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

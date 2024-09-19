@@ -1,4 +1,4 @@
-package br.com.luis.jest_airlines.dto;
+package br.com.luis.jest_airlines.dto.user;
 
 public record UserUpdateDTO(
         String fullName,
