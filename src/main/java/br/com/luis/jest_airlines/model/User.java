@@ -1,23 +1,24 @@
 package br.com.luis.jest_airlines.model;
 
 
+import br.com.luis.jest_airlines.dto.UserRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
+
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -44,5 +45,14 @@ public class User {
 
     private UserRole role;
 
-  //  private List<Reservation> historic = new ArrayList<>();
+    public User(UserRequestDTO userRequest) {
+        this.fullName = userRequest.fullName();
+        this.email = userRequest.email();
+        this.password = userRequest.password();
+        this.dateOfBirth = userRequest.dateOfBirth();
+        this.cpf = userRequest.cpf();
+        this.phoneNumber = userRequest.phoneNumber();
+    }
+
+    //  private List<Reservation> historic = new ArrayList<>();
 }
