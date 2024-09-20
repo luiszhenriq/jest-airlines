@@ -32,6 +32,11 @@ public class UserController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/perfil")
+    public ResponseEntity<UserResponseDTO> perfil(@RequestParam("email") String email) {
+        return new ResponseEntity<>(service.perfil(email), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<UserResponseDTO> update(@PathVariable("id") UUID id,

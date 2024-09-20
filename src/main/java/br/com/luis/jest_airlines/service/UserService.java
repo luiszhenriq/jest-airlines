@@ -34,6 +34,14 @@ public class UserService {
         return userResponseDTO(user);
     }
 
+    public UserResponseDTO perfil(String email) {
+
+        User user = repository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Id não encontrado"));
+
+        return userResponseDTO(user);
+    }
+
     public UserResponseDTO update(UUID id, UserUpdateDTO userUpdate) {
 
         User user = repository.findById(id)
