@@ -1,6 +1,9 @@
 package br.com.luis.jest_airlines.dto.flight;
 
+import br.com.luis.jest_airlines.dto.seat.SeatResponseDTO;
+
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 public record FlightResponseDTO(
@@ -18,7 +21,8 @@ public record FlightResponseDTO(
         ,
         String duration,
 
-        Integer price
-        
-        ) {
+        Integer price,
+
+        Set<SeatResponseDTO> availableSeats
+) {
 }

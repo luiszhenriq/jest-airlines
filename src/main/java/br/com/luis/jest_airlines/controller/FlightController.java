@@ -5,14 +5,13 @@ import br.com.luis.jest_airlines.dto.flight.FlightRequestDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightResponseDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightUpdateDTO;
 import br.com.luis.jest_airlines.service.FlightService;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -29,7 +28,7 @@ public class FlightController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FlightResponseDTO>> findAll() {
+    public ResponseEntity<Set<FlightResponseDTO>> findAll() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 

@@ -36,7 +36,7 @@ public class Reservation {
     private LocalDateTime dateOfReservation;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reservation_id", nullable = false)
+    @JoinColumn(name = "reservation_id")
     private Set<Seat> reservedSeats = new HashSet<>();
 
     private Integer value;

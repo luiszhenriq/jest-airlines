@@ -25,7 +25,7 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String number;
 
     @Column(nullable = false)
@@ -59,7 +59,5 @@ public class Flight {
         this.duration = flightRequest.duration();
         this.price = flightRequest.price();
     }
-
-    //  private List<Seat> seats = new ArrayList<>();
 
 }
