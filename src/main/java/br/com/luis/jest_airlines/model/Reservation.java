@@ -1,6 +1,7 @@
 package br.com.luis.jest_airlines.model;
 
 
+import br.com.luis.jest_airlines.dto.reservation.ReservationRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -24,19 +25,31 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-  //  private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-  //  private Flight flight;
+    @ManyToOne
+    @JoinColumn(name = "flight_id", nullable = false)
+    private Flight flight;
 
     private LocalDateTime dateOfReservation;
 
-   // private List<Reservation> reservedSeats = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservation_id", nullable = false)
+    private Set<Seat> reservedSeats = new HashSet<>();
 
-    @Column(nullable = false)
     private Integer value;
 
     @Column(nullable = false)
     private String status;
 
     private String paymentMethod;
+
+    public Reservation(ReservationRequestDTO reservationRequest) {
+        this.dateOfReservation = LocalDateTime.now();
+        this.value = reservationRequest.value();
+        this.status = reservationRequest.status();
+        this.paymentMethod = reservationRequest.paymentMethod();
+    }
 }

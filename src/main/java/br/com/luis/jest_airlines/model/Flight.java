@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -40,10 +40,15 @@ public class Flight {
     @Column(nullable = false)
     private LocalDateTime arrival;
 
+    @Column(nullable = false)
     private String duration;
 
     @Column(nullable = false)
     private Integer price;
+
+    @Column(nullable = false)
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    private Set<Seat> availableSeats = new HashSet<>();
 
     public Flight(FlightRequestDTO flightRequest) {
         this.number = flightRequest.number();

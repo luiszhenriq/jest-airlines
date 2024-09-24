@@ -29,4 +29,8 @@ public class Seat {
 
     @Column(nullable = false)
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
 }
