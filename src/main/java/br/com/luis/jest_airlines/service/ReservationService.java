@@ -17,6 +17,7 @@ import br.com.luis.jest_airlines.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +52,10 @@ public class ReservationService {
         Reservation savedReservation = repository.save(newReservation);
 
         return reservationResponseDTO(savedReservation);
+    }
+
+    public void cancel(UUID id) {
+        repository.deleteById(id);
     }
 
 

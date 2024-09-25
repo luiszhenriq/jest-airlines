@@ -8,10 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/reservation")
@@ -24,5 +23,11 @@ public class ReservationController {
     @Transactional
     public ResponseEntity<ReservationResponseDTO> create(@RequestBody ReservationRequestDTO reservationRequest) {
         return new ResponseEntity<>(service.create(reservationRequest), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> cancel(@PathVariable("id") UUID id) {
+        service.cancel(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
