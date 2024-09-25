@@ -1,6 +1,7 @@
 package br.com.luis.jest_airlines.model;
 
 
+import br.com.luis.jest_airlines.dto.seat.SeatRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,4 +35,10 @@ public class Seat {
     @JoinColumn(name = "flight_id")
     private Flight flight;
 
+
+    public Seat(SeatRequestDTO seatRequest) {
+        this.number = seatRequest.number();
+        this.type = seatRequest.type();
+        this.status = seatRequest.status();
+    }
 }
