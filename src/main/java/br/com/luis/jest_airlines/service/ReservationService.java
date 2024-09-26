@@ -10,6 +10,7 @@ import br.com.luis.jest_airlines.model.Flight;
 import br.com.luis.jest_airlines.model.Reservation;
 import br.com.luis.jest_airlines.model.Seat;
 import br.com.luis.jest_airlines.model.User;
+import br.com.luis.jest_airlines.model.enums.ReservationStatus;
 import br.com.luis.jest_airlines.repositories.FlightRepository;
 import br.com.luis.jest_airlines.repositories.ReservationRepository;
 import br.com.luis.jest_airlines.repositories.SeatRepository;

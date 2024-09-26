@@ -1,6 +1,8 @@
 package br.com.luis.jest_airlines.dto.reservation;
 
 import br.com.luis.jest_airlines.dto.seat.SeatResponseDTO;
+import br.com.luis.jest_airlines.model.enums.PaymentMethod;
+import br.com.luis.jest_airlines.model.enums.ReservationStatus;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -13,9 +15,9 @@ public record ReservationResponseDTO(
 
         Integer value,
 
-        String status,
+        ReservationStatus status,
 
-        String paymentMethod,
+        PaymentMethod paymentMethod,
 
         UserRespReservationDTO user,
 

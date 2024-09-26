@@ -43,8 +43,6 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
 
-    private UserRole role;
-
     public User(UserRequestDTO userRequest) {
         this.fullName = userRequest.fullName();
         this.email = userRequest.email();
@@ -53,6 +51,4 @@ public class User {
         this.cpf = userRequest.cpf();
         this.phoneNumber = userRequest.phoneNumber();
     }
-
-    //  private List<Reservation> historic = new ArrayList<>();
 }

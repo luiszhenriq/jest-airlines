@@ -2,6 +2,8 @@ package br.com.luis.jest_airlines.model;
 
 
 import br.com.luis.jest_airlines.dto.reservation.ReservationRequestDTO;
+import br.com.luis.jest_airlines.model.enums.PaymentMethod;
+import br.com.luis.jest_airlines.model.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,10 +43,11 @@ public class Reservation {
 
     private Integer value;
 
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
 
-    private String paymentMethod;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
 
     public Reservation(ReservationRequestDTO reservationRequest) {
         this.dateOfReservation = LocalDateTime.now();
