@@ -1,7 +1,7 @@
 package br.com.luis.jest_airlines.model;
 
 
-import br.com.luis.jest_airlines.dto.user.UserRequestDTO;
+import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,6 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 
 import java.util.Collection;
 import java.util.Date;
@@ -48,7 +47,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String phoneNumber;
 
-    public User(UserRequestDTO userRequest) {
+    public User(UserRegisterDTO userRequest) {
         this.fullName = userRequest.fullName();
         this.email = userRequest.email();
         this.password = userRequest.password();
