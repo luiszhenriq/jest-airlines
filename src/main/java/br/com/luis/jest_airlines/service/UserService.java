@@ -4,6 +4,7 @@ import br.com.luis.jest_airlines.dto.user.UserLoginDTO;
 import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
+import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.infra.security.TokenService;
 import br.com.luis.jest_airlines.model.User;
 import br.com.luis.jest_airlines.repositories.UserRepository;
@@ -60,7 +61,7 @@ public class UserService {
     public UserResponseDTO findById(UUID id) {
 
         User user = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Id não encontrado"));
+                .orElseThrow(() -> new IdNotFoundException("Id não encontrado"));
 
         return userResponseDTO(user);
     }
@@ -75,7 +76,7 @@ public class UserService {
     public UserResponseDTO update(UUID id, UserUpdateDTO userUpdate) {
 
         User user = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Id não encontrado"));
+                .orElseThrow(() -> new IdNotFoundException("Id não encontrado"));
 
         user.setFullName(userUpdate.fullName());
         user.setEmail(userUpdate.email());

@@ -24,10 +24,10 @@ public class UserController {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
-   /* @GetMapping("/perfil")
+    @GetMapping("/perfil")
     public ResponseEntity<UserResponseDTO> perfil() {
         return new ResponseEntity<>(service.perfil(), HttpStatus.OK);
-    } */
+    }
 
     @PutMapping("/{id}")
     @Transactional

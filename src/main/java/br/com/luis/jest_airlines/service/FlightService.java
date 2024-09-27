@@ -5,6 +5,7 @@ import br.com.luis.jest_airlines.dto.flight.FlightRequestDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightResponseDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightUpdateDTO;
 import br.com.luis.jest_airlines.dto.seat.SeatResponseDTO;
+import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.model.Flight;
 import br.com.luis.jest_airlines.model.Seat;
 import br.com.luis.jest_airlines.repositories.FlightRepository;
@@ -54,7 +55,7 @@ public class FlightService {
     public FlightResponseDTO findById(UUID id) {
 
         Flight flight = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Id não encontrado"));
+                .orElseThrow(() -> new IdNotFoundException("Id não encontrado"));
 
         return flightResponseDTO(flight);
     }
@@ -62,7 +63,7 @@ public class FlightService {
     public FlightResponseDTO update(UUID id, FlightUpdateDTO flightUpdate) {
 
         Flight flight = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Id não encontrado"));
+                .orElseThrow(() -> new IdNotFoundException("Id não encontrado"));
 
         flight.setDeparture(flightUpdate.departure());
         flight.setArrival(flightUpdate.arrival());

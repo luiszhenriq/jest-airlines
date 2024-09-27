@@ -6,6 +6,7 @@ import br.com.luis.jest_airlines.dto.reservation.ReservationRequestDTO;
 import br.com.luis.jest_airlines.dto.reservation.ReservationResponseDTO;
 import br.com.luis.jest_airlines.dto.reservation.UserRespReservationDTO;
 import br.com.luis.jest_airlines.dto.seat.SeatResponseDTO;
+import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.model.Flight;
 import br.com.luis.jest_airlines.model.Reservation;
 import br.com.luis.jest_airlines.model.Seat;
@@ -15,8 +16,8 @@ import br.com.luis.jest_airlines.repositories.ReservationRepository;
 import br.com.luis.jest_airlines.repositories.SeatRepository;
 import br.com.luis.jest_airlines.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -37,16 +38,16 @@ public class ReservationService {
     public ReservationResponseDTO create(ReservationRequestDTO reservationRequest) {
 
         User user = userRepository.findById(reservationRequest.userId())
-                .orElseThrow(() -> new RuntimeException("Id não encontrado"));
+                .orElseThrow(() -> new IdNotFoundException("Id não encontrado"));
 
         Flight flight = flightRepository.findById(reservationRequest.flightId())
-                .orElseThrow(() -> new RuntimeException("Id não foi encontrado"));
+                .orElseThrow(() -> new IdNotFoundException("Id não foi encontrado"));
 
         Reservation newReservation = new Reservation(reservationRequest);
 
         reservationRequest.seatsId().forEach(seatId -> {
             Seat seat = seatRepository.findById(seatId)
-                    .orElseThrow(() -> new RuntimeException("Id não foi encontrado"));
+                    .orElseThrow(() -> new IdNotFoundException("Id não foi encontrado"));
             newReservation.addSeat(seat);
         });
         newReservation.setUser(user);
@@ -102,10 +103,10 @@ public class ReservationService {
     }
 
     private User getAuthenticatedUser() {
-        String username = SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal().toString();
 
-        return userRepository.findUserByEmail(username);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String email = userDetails.getUsername();
+        return this.userRepository.findUserByEmail(email);
     }
-
 }

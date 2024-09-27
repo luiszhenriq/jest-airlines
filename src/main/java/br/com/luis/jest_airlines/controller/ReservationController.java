@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -29,5 +30,10 @@ public class ReservationController {
     public ResponseEntity<Void> cancel(@PathVariable("id") UUID id) {
         service.cancel(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/my-reservations")
+    public ResponseEntity<Set<ReservationResponseDTO>> getAllReservationsByUser() {
+        return new ResponseEntity<>(service.getReservationsByUser(), HttpStatus.OK);
     }
 }
