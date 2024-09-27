@@ -9,8 +9,6 @@ public record UserResponseDTO(UUID id,
 
                               String email,
 
-                              String password,
-
                               Date dateOfBirth,
 
                               String cpf,

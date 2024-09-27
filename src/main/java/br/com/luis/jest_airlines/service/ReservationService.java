@@ -10,14 +10,16 @@ import br.com.luis.jest_airlines.model.Flight;
 import br.com.luis.jest_airlines.model.Reservation;
 import br.com.luis.jest_airlines.model.Seat;
 import br.com.luis.jest_airlines.model.User;
-import br.com.luis.jest_airlines.model.enums.ReservationStatus;
 import br.com.luis.jest_airlines.repositories.FlightRepository;
 import br.com.luis.jest_airlines.repositories.ReservationRepository;
 import br.com.luis.jest_airlines.repositories.SeatRepository;
 import br.com.luis.jest_airlines.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -55,6 +57,14 @@ public class ReservationService {
         return reservationResponseDTO(savedReservation);
     }
 
+    public Set<ReservationResponseDTO> getReservationsByUser() {
+
+        return repository.findAllByUser(getAuthenticatedUser())
+                .stream()
+                .map(this::reservationResponseDTO)
+                .collect(Collectors.toSet());
+    }
+
     public void cancel(UUID id) {
         repository.deleteById(id);
     }
@@ -90,4 +100,12 @@ public class ReservationService {
                         )).collect(Collectors.toSet())
         );
     }
+
+    private User getAuthenticatedUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal().toString();
+
+        return userRepository.findUserByEmail(username);
+    }
+
 }

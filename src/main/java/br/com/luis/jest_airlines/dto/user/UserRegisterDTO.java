@@ -3,7 +3,7 @@ package br.com.luis.jest_airlines.dto.user;
 
 import java.util.Date;
 
-public record UserRequestDTO(
+public record UserRegisterDTO(
                              String fullName,
 
                              String email,
