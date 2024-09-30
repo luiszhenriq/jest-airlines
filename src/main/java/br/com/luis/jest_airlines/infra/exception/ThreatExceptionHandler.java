@@ -33,4 +33,22 @@ public class ThreatExceptionHandler {
 
         return ResponseEntity.badRequest().body(errors);
     }
+
+    @ExceptionHandler(EmailAlreadyRegisteredException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleEmailExistsException(EmailAlreadyRegisteredException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorResponse error = new ErrorResponse(System.currentTimeMillis(), status.value(), "Email já cadastrado", ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ErrorResponse> handleInvalidPasswordException(InvalidPasswordException ex, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ErrorResponse error = new ErrorResponse(System.currentTimeMillis(), status.value(), "Senha Inválida", ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
 }

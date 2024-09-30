@@ -4,7 +4,9 @@ import br.com.luis.jest_airlines.dto.user.UserLoginDTO;
 import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
+import br.com.luis.jest_airlines.infra.exception.EmailAlreadyRegisteredException;
 import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
+import br.com.luis.jest_airlines.infra.exception.InvalidPasswordException;
 import br.com.luis.jest_airlines.infra.security.TokenService;
 import br.com.luis.jest_airlines.model.User;
 import br.com.luis.jest_airlines.repositories.UserRepository;
@@ -30,7 +32,7 @@ public class UserService {
     public UserResponseDTO register(UserRegisterDTO userRegister) {
 
         if (this.repository.findByEmail(userRegister.email()) != null) {
-            throw new RuntimeException("Email ja cadastrado");
+            throw new EmailAlreadyRegisteredException("Este email já está cadastrado");
         }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(userRegister.password());
@@ -49,7 +51,7 @@ public class UserService {
         User user = (User) repository.findByEmail(userLogin.email());
 
         if (!this.passwordEncoder.matches(userLogin.password(), user.getPassword())) {
-            throw new RuntimeException("Senha inválida");
+            throw new InvalidPasswordException("Senha inválida");
         }
 
         var token = new UsernamePasswordAuthenticationToken(userLogin.email(), userLogin.password());
