@@ -5,6 +5,7 @@ import br.com.luis.jest_airlines.dto.flight.FlightRequestDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightResponseDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightUpdateDTO;
 import br.com.luis.jest_airlines.service.FlightService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class FlightController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<FlightResponseDTO> create(@RequestBody FlightRequestDTO flightRequest) {
+    public ResponseEntity<FlightResponseDTO> create(@RequestBody @Valid FlightRequestDTO flightRequest) {
         return new ResponseEntity<>(service.create(flightRequest), HttpStatus.CREATED);
     }
 
@@ -40,7 +41,7 @@ public class FlightController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<FlightResponseDTO> update(@PathVariable("id") UUID id,
-                                                    @RequestBody FlightUpdateDTO flightUpdate) {
+                                                    @RequestBody @Valid FlightUpdateDTO flightUpdate) {
         return new ResponseEntity<>(service.update(id, flightUpdate), HttpStatus.OK);
     }
 

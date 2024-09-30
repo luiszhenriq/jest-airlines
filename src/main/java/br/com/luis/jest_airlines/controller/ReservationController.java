@@ -4,6 +4,7 @@ package br.com.luis.jest_airlines.controller;
 import br.com.luis.jest_airlines.dto.reservation.ReservationRequestDTO;
 import br.com.luis.jest_airlines.dto.reservation.ReservationResponseDTO;
 import br.com.luis.jest_airlines.service.ReservationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ReservationController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ReservationResponseDTO> create(@RequestBody ReservationRequestDTO reservationRequest) {
+    public ResponseEntity<ReservationResponseDTO> create(@RequestBody @Valid ReservationRequestDTO reservationRequest) {
         return new ResponseEntity<>(service.create(reservationRequest), HttpStatus.CREATED);
     }
 

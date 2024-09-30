@@ -6,6 +6,7 @@ import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.infra.security.TokenJWT;
 import br.com.luis.jest_airlines.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +25,14 @@ public class AuthController {
 
     @PostMapping("/login")
     @Transactional
-    public ResponseEntity<TokenJWT> login(@RequestBody UserLoginDTO userLogin) {
+    public ResponseEntity<TokenJWT> login(@RequestBody @Valid UserLoginDTO userLogin) {
         String tokenJWT = service.login(userLogin);
         return ResponseEntity.ok(new TokenJWT(tokenJWT));
     }
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<UserResponseDTO> register(@RequestBody UserRegisterDTO userRegisterDTO) {
+    public ResponseEntity<UserResponseDTO> register(@RequestBody @Valid UserRegisterDTO userRegisterDTO) {
         return new ResponseEntity<>(service.register(userRegisterDTO), HttpStatus.CREATED);
     }
 
