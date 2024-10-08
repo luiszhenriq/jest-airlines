@@ -48,8 +48,13 @@ public class ReservationService {
         reservationRequest.seatsId().forEach(seatId -> {
             Seat seat = seatRepository.findById(seatId)
                     .orElseThrow(() -> new IdNotFoundException("Id não foi encontrado"));
+
+            seat.setStatus("reservado");
             newReservation.addSeat(seat);
+
+            newReservation.setValue(flight.getPrice() + flight.getPrice());
         });
+
         newReservation.setUser(user);
         newReservation.setFlight(flight);
 
