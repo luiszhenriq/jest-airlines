@@ -63,6 +63,14 @@ public class ReservationService {
         return reservationResponseDTO(savedReservation);
     }
 
+    public ReservationResponseDTO findById(UUID id) {
+
+        Reservation reservation = repository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("Id não foi encontrado"));
+
+        return reservationResponseDTO(reservation);
+    }
+
     public Set<ReservationResponseDTO> getReservationsByUser() {
 
         return repository.findAllByUser(getAuthenticatedUser())
