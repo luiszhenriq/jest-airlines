@@ -9,7 +9,6 @@ import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -37,6 +36,8 @@ public class PaymentService {
                         .setMode(SessionCreateParams.Mode.PAYMENT)
                         .setSuccessUrl("http://localhost:8080/payment/success")
                         .setCancelUrl("http://localhost:8080/payment/failed")
+                        .setPaymentIntentData(SessionCreateParams.PaymentIntentData.builder()
+                                .putMetadata("reservation_id", String.valueOf(reservation.id())).build())
                         .addLineItem(SessionCreateParams.LineItem.builder()
                                 .setQuantity(1L).setPriceData(SessionCreateParams.LineItem.PriceData.builder()
                                         .setCurrency("brl")

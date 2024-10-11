@@ -41,7 +41,7 @@ public class Reservation {
     @JoinColumn(name = "reservation_id")
     private Set<Seat> reservedSeats = new HashSet<>();
 
-    private Integer value;
+    private Integer value = 0;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;

@@ -19,10 +19,8 @@ public record ReservationRequestDTO(
         @NotNull(message = "Este campo não pode ser nulo")
         Set<UUID> seatsId,
 
-        @NotNull(message = "Este campo não pode ser nulo")
         ReservationStatus status,
 
-        @NotNull(message = "Este campo não pode ser nulo")
         PaymentMethod paymentMethod
 ) {
 }
