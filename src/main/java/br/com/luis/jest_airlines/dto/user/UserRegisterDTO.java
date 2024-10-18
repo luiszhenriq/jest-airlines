@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record UserRegisterDTO(
                              @NotBlank(message = "Este campo não pode ser vazio")
@@ -19,7 +19,7 @@ public record UserRegisterDTO(
                              String password,
 
                              @NotNull(message = "Este campo não pode ser nulo")
-                             Date dateOfBirth,
+                             LocalDate dateOfBirth,
 
                              @NotBlank(message = "Este campo não pode ser vazio")
                              String cpf,

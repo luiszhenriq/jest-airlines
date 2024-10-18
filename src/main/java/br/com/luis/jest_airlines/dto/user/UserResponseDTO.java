@@ -1,6 +1,6 @@
 package br.com.luis.jest_airlines.dto.user;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public record UserResponseDTO(UUID id,
@@ -9,7 +9,7 @@ public record UserResponseDTO(UUID id,
 
                               String email,
 
-                              Date dateOfBirth,
+                              LocalDate dateOfBirth,
 
                               String cpf,
 
