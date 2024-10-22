@@ -119,4 +119,17 @@ class UserServiceTest {
         assertEquals(ID, response.id());
     }
 
+    @Test
+    @DisplayName("When update should return an email already registered exception")
+    void whenUpdateShouldReturnAnEmailAlreadyRegisteredException() {
+        when(repository.findByEmail(anyString())).thenReturn(user);
+
+        try {
+            service.update(ID, userUpdateDTO);
+        }catch (Exception ex) {
+            assertEquals(EmailAlreadyRegisteredException.class, ex.getClass());
+            assertEquals("Este email já está cadastrado", ex.getMessage());
+        }
+    }
+
 }
