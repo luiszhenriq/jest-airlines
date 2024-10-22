@@ -2,6 +2,7 @@ package br.com.luis.jest_airlines.service;
 
 import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
+import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
 import br.com.luis.jest_airlines.infra.exception.EmailAlreadyRegisteredException;
 import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.model.User;
@@ -45,10 +46,14 @@ class UserServiceTest {
 
     private UserRegisterDTO userDTO;
 
+    private UserUpdateDTO userUpdateDTO;
+
     @BeforeEach
     void startUser() {
         user = new User(ID, FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
         userDTO = new UserRegisterDTO(FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
+        userUpdateDTO = new UserUpdateDTO(FULL_NAME, EMAIL, PASSWORD, PHONE_NUMBER);
+
     }
 
     @Test
@@ -99,6 +104,19 @@ class UserServiceTest {
             assertEquals(EmailAlreadyRegisteredException.class, ex.getClass());
             assertEquals("Este email já está cadastrado", ex.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("Should update a user success")
+    void shouldUpdateAUserSuccess() {
+        when(repository.findById(ID)).thenReturn(Optional.of(user));
+        when(repository.save(any())).thenReturn(user);
+
+        UserResponseDTO response = service.update(ID, userUpdateDTO);
+
+        assertNotNull(response);
+        assertEquals(UserResponseDTO.class, response.getClass());
+        assertEquals(ID, response.id());
     }
 
 }

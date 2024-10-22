@@ -77,6 +77,10 @@ public class UserService {
 
     public UserResponseDTO update(UUID id, UserUpdateDTO userUpdate) {
 
+        if (this.repository.findByEmail(userUpdate.email()) != null) {
+            throw new EmailAlreadyRegisteredException("Este email já está cadastrado");
+        }
+
         User user = repository.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("Id não encontrado"));
 
