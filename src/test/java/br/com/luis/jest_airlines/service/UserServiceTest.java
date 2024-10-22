@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -130,6 +130,16 @@ class UserServiceTest {
             assertEquals(EmailAlreadyRegisteredException.class, ex.getClass());
             assertEquals("Este email já está cadastrado", ex.getMessage());
         }
+    }
+
+    @Test
+    @DisplayName("Should delete a user with sucess")
+    void shouldDeleteAUserWithSucess(){
+        doNothing().when(repository).deleteById(ID);
+
+        service.deleteById(ID);
+
+        verify(repository, times(1)).deleteById(ID);
     }
 
 }
