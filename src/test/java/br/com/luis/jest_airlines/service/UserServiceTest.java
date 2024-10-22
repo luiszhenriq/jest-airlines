@@ -2,6 +2,7 @@ package br.com.luis.jest_airlines.service;
 
 import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
+import br.com.luis.jest_airlines.infra.exception.EmailAlreadyRegisteredException;
 import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.model.User;
 import br.com.luis.jest_airlines.repositories.UserRepository;
@@ -20,6 +21,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -84,6 +86,19 @@ class UserServiceTest {
         assertNotNull(response);
         assertEquals(UserResponseDTO.class, response.getClass());
         assertEquals(ID, response.id());
+    }
+
+    @Test
+    @DisplayName("Should return an email already registered exception")
+    void shouldReturnAnEmailAlreadyRegisteredException() {
+        when(repository.findByEmail(anyString())).thenReturn(user);
+
+        try {
+            service.register(userDTO);
+        }catch (Exception ex) {
+            assertEquals(EmailAlreadyRegisteredException.class, ex.getClass());
+            assertEquals("Este email já está cadastrado", ex.getMessage());
+        }
     }
 
 }
