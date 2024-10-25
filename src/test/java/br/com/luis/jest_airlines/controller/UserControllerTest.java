@@ -3,7 +3,6 @@ package br.com.luis.jest_airlines.controller;
 import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
-import br.com.luis.jest_airlines.model.User;
 import br.com.luis.jest_airlines.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -44,8 +42,6 @@ class UserControllerTest {
     @InjectMocks
     private AuthController authController;
 
-    private User user;
-
     private UserRegisterDTO userDTO;
 
     private UserUpdateDTO userUpdateDTO;
@@ -54,7 +50,6 @@ class UserControllerTest {
 
     @BeforeEach
     void startUser() {
-        user = new User(ID, FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
         userResponseDTO = new UserResponseDTO(ID, FULL_NAME, EMAIL, BIRTH, CPF, PHONE_NUMBER);
         userDTO = new UserRegisterDTO(FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
         userUpdateDTO = new UserUpdateDTO(FULL_NAME, EMAIL, PASSWORD, PHONE_NUMBER);
