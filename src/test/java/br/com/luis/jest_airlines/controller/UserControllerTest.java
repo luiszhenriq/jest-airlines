@@ -21,7 +21,8 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -97,6 +98,19 @@ class UserControllerTest {
         assertEquals(UserResponseDTO.class, response.getBody().getClass());
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
+    }
+
+    @Test
+    @DisplayName("Should delete a user with sucess")
+    void shouldDeleteAUserWithSucess(){
+        doNothing().when(service).deleteById(ID);
+
+        ResponseEntity<Void> response = controller.delete(ID);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+
+        verify(service, times(1)).deleteById(ID);
     }
 
 }
