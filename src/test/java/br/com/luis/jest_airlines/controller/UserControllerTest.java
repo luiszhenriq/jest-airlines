@@ -18,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,6 +39,9 @@ class UserControllerTest {
 
     @Mock
     private UserService service;
+
+    @InjectMocks
+    private AuthController authController;
 
     private User user;
 
@@ -68,6 +73,16 @@ class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Test
+    @DisplayName("Should register a user with success")
+    void shouldRegisterAUserWithSuccess() {
+        when(service.register(any())).thenReturn(userResponseDTO);
 
+        ResponseEntity<UserResponseDTO> response = authController.register(userDTO);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
+    }
 
 }
