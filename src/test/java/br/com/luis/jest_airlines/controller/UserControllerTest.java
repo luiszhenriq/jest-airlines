@@ -84,5 +84,19 @@ class UserControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
     }
+    @Test
+    @DisplayName("Should register a user with success")
+    void shouldUpdateAUserWithSuccess() {
+        when(service.update(ID, userUpdateDTO)).thenReturn(userResponseDTO);
+
+        ResponseEntity<UserResponseDTO> response = controller.update(ID, userUpdateDTO);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(UserResponseDTO.class, response.getBody().getClass());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+    }
 
 }
