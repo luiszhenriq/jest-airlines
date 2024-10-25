@@ -1,19 +1,25 @@
 package br.com.luis.jest_airlines.controller;
 
 import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
+import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
 import br.com.luis.jest_airlines.model.User;
 import br.com.luis.jest_airlines.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -38,11 +44,30 @@ class UserControllerTest {
 
     private UserUpdateDTO userUpdateDTO;
 
+    private UserResponseDTO userResponseDTO;
+
     @BeforeEach
     void startUser() {
         user = new User(ID, FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
+        userResponseDTO = new UserResponseDTO(ID, FULL_NAME, EMAIL, BIRTH, CPF, PHONE_NUMBER);
         userDTO = new UserRegisterDTO(FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
         userUpdateDTO = new UserUpdateDTO(FULL_NAME, EMAIL, PASSWORD, PHONE_NUMBER);
     }
+
+    @Test
+    @DisplayName("Should return a user by id with success")
+    void shouldReturnAUserByIdWithSuccess() {
+        when(service.findById(ID)).thenReturn(userResponseDTO);
+
+        ResponseEntity<UserResponseDTO> response = controller.findById(ID);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(UserResponseDTO.class, response.getBody().getClass());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+
 
 }
