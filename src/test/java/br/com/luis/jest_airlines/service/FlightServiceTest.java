@@ -96,6 +96,19 @@ class FlightServiceTest {
     }
 
     @Test
+    @DisplayName("When update should return an id not found  exception")
+    void whenUpdateShouldReturnAnIdNotFoundException() {
+        when(repository.findById(ID)).thenThrow(new IdNotFoundException("Id não encontrado"));
+
+        try {
+            service.update(ID, flightUpdate);
+        }catch (Exception ex) {
+            assertEquals(IdNotFoundException.class, ex.getClass());
+            assertEquals("Id não encontrado", ex.getMessage());
+        }
+    }
+
+    @Test
     @DisplayName("Should return a flight list")
     void ShouldReturnAFlightList() {
         setUpSeats();
