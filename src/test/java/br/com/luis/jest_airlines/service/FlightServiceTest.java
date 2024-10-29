@@ -2,6 +2,7 @@ package br.com.luis.jest_airlines.service;
 
 import br.com.luis.jest_airlines.dto.flight.FlightResponseDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightUpdateDTO;
+import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.model.Flight;
 import br.com.luis.jest_airlines.model.Seat;
 import br.com.luis.jest_airlines.repositories.FlightRepository;
@@ -64,6 +65,19 @@ class FlightServiceTest {
         assertNotNull(response);
         assertEquals(FlightResponseDTO.class, response.getClass());
         assertEquals(ID, response.id());
+    }
+
+    @Test
+    @DisplayName("Should return an id not found exception")
+    void shouldReturnAnIdNotFoundException() {
+        when(repository.findById(ID)).thenThrow(new IdNotFoundException("Id não encontrado"));
+
+        try {
+            service.findById(ID);
+        }catch (Exception ex) {
+            assertEquals(IdNotFoundException.class, ex.getClass());
+            assertEquals("Id não encontrado", ex.getMessage());
+        }
     }
 
     @Test
