@@ -81,6 +81,17 @@ class FlightServiceTest {
         assertEquals(ID, response.id());
     }
 
+    @Test
+    @DisplayName("Should return a flight list")
+    void ShouldReturnAFlightList() {
+        setUpSeats();
+
+        when(repository.findAll()).thenReturn(List.of(flight));
+
+        Set<FlightResponseDTO> response = service.findAll();
+
+        assertEquals(1, response.size());
+    }
 
     @Test
     @DisplayName("Should delete a flight with success")
