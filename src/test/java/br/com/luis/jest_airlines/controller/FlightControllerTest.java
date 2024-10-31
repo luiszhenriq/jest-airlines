@@ -19,8 +19,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class FlightControllerTest {
@@ -67,25 +66,44 @@ class FlightControllerTest {
     }
 
     @Test
-    void findById() {
+    @DisplayName("Should return a flight by id with success")
+    void shouldReturnAFlightByIdWithSuccess() {
+        when(service.findById(ID)).thenReturn(flightResponse);
+
+        ResponseEntity<FlightResponseDTO> response = controller.findById(ID);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(FlightResponseDTO.class, response.getBody().getClass());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    void update() {
+    @DisplayName("Should update a flight with success")
+    void shouldUpdateAFlightWithSuccess() {
+        when(service.update(ID, flightUpdate)).thenReturn(flightResponse);
+
+        ResponseEntity<FlightResponseDTO> response = controller.update(ID, flightUpdate);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(FlightResponseDTO.class, response.getBody().getClass());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    void delete() {
+    @DisplayName("Should delete a flight with success")
+    void shouldDeleteAFlightWithSuccess() {
+        doNothing().when(service).delete(ID);
+
+        ResponseEntity<Void> response = controller.delete(ID);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+
+        verify(service, times(1)).delete(ID);
     }
 
-    void setUpSeats() {
-        Seat seat1 = mock(Seat.class);
-        Seat seat2 = mock(Seat.class);
-
-        when(seat1.getNumber()).thenReturn("1A");
-        when(seat2.getNumber()).thenReturn("1B");
-
-        seats = new HashSet<>(Arrays.asList(seat1, seat2));
-        flight.setAvailableSeats(seats);
-    }
 }
