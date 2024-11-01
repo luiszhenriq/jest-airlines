@@ -51,8 +51,6 @@ public class Reservation {
 
     public Reservation(ReservationRequestDTO reservationRequest) {
         this.dateOfReservation = LocalDateTime.now();
-        this.status = reservationRequest.status();
-        this.paymentMethod = reservationRequest.paymentMethod();
     }
 
     public void addSeat(Seat seat) {
