@@ -1,6 +1,5 @@
 package br.com.luis.jest_airlines.controller;
 
-import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.dto.user.UserUpdateDTO;
 import br.com.luis.jest_airlines.service.UserService;
@@ -19,7 +18,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,11 +37,6 @@ class UserControllerTest {
     @Mock
     private UserService service;
 
-    @InjectMocks
-    private AuthController authController;
-
-    private UserRegisterDTO userDTO;
-
     private UserUpdateDTO userUpdateDTO;
 
     private UserResponseDTO userResponseDTO;
@@ -51,7 +44,6 @@ class UserControllerTest {
     @BeforeEach
     void startUser() {
         userResponseDTO = new UserResponseDTO(ID, FULL_NAME, EMAIL, BIRTH, CPF, PHONE_NUMBER);
-        userDTO = new UserRegisterDTO(FULL_NAME, EMAIL, PASSWORD, BIRTH, CPF, PHONE_NUMBER);
         userUpdateDTO = new UserUpdateDTO(FULL_NAME, EMAIL, PASSWORD, PHONE_NUMBER);
     }
 
@@ -69,17 +61,7 @@ class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
-    @Test
-    @DisplayName("Should register a user with success")
-    void shouldRegisterAUserWithSuccess() {
-        when(service.register(any())).thenReturn(userResponseDTO);
 
-        ResponseEntity<UserResponseDTO> response = authController.register(userDTO);
-
-        assertNotNull(response);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-
-    }
     @Test
     @DisplayName("Should register a user with success")
     void shouldUpdateAUserWithSuccess() {
@@ -97,7 +79,7 @@ class UserControllerTest {
 
     @Test
     @DisplayName("Should delete a user with sucess")
-    void shouldDeleteAUserWithSucess(){
+    void shouldDeleteAUserWithSuccess(){
         doNothing().when(service).deleteById(ID);
 
         ResponseEntity<Void> response = controller.delete(ID);
