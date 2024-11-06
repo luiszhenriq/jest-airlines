@@ -39,8 +39,6 @@ class FlightControllerTest {
     @Mock
     private FlightService service;
 
-    private Flight flight;
-
     private FlightUpdateDTO flightUpdate;
 
     private FlightResponseDTO flightResponse;
@@ -49,7 +47,6 @@ class FlightControllerTest {
 
     @BeforeEach
     void setUp() {
-        flight = new Flight(ID, NUMBER, ORIGIN, DESTINY, DEPARTURE, ARRIVAL, DURATION, PRICE, null);
         flightResponse = new FlightResponseDTO(ID, NUMBER, ORIGIN, DESTINY, DEPARTURE, ARRIVAL, DURATION, PRICE, null);
         flightUpdate = new FlightUpdateDTO(DEPARTURE, ARRIVAL, DURATION, PRICE);
     }
