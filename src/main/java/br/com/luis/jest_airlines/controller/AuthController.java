@@ -6,6 +6,9 @@ import br.com.luis.jest_airlines.dto.user.UserRegisterDTO;
 import br.com.luis.jest_airlines.dto.user.UserResponseDTO;
 import br.com.luis.jest_airlines.infra.security.TokenJWT;
 import br.com.luis.jest_airlines.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +26,11 @@ public class AuthController {
 
     private final UserService service;
 
+    @Operation(summary = "User login")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode="200", description = "Logged in user"),
+            @ApiResponse(responseCode="401", description="Unauthorized"),
+    })
     @PostMapping("/login")
     @Transactional
     public ResponseEntity<TokenJWT> login(@RequestBody @Valid UserLoginDTO userLogin) {
@@ -30,6 +38,11 @@ public class AuthController {
         return ResponseEntity.ok(new TokenJWT(tokenJWT));
     }
 
+    @Operation(summary = "User register")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode="201", description = "Registered user"),
+            @ApiResponse(responseCode="400", description = "Email already registered"),
+    })
     @PostMapping("/register")
     @Transactional
     public ResponseEntity<UserResponseDTO> register(@RequestBody @Valid UserRegisterDTO userRegisterDTO) {

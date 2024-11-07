@@ -3,8 +3,7 @@ package br.com.luis.jest_airlines.model.enums;
 public enum ReservationStatus {
 
     CONFIRMADO("confirmado"),
-    PENDENTE("pendente"),
-    CANCELADO("cancelado");
+    PENDENTE("pendente");
 
     private String status;
 
