@@ -1,7 +1,6 @@
 package br.com.luis.jest_airlines.controller;
 
 
-import br.com.luis.jest_airlines.dto.flight.FlightRequestDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightResponseDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightUpdateDTO;
 import br.com.luis.jest_airlines.service.FlightService;
@@ -25,17 +24,6 @@ public class FlightController {
 
     private final FlightService service;
 
-    @Operation(summary = "Create flight")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode="201", description = "Created flight"),
-            @ApiResponse(responseCode="400", description = "Invalid input data"),
-            @ApiResponse(responseCode="401", description = "Unauthorized"),
-    })
-    @PostMapping
-    @Transactional
-    public ResponseEntity<FlightResponseDTO> create(@RequestBody @Valid FlightRequestDTO flightRequest) {
-        return new ResponseEntity<>(service.create(flightRequest), HttpStatus.CREATED);
-    }
 
     @Operation(summary = "Get all flights")
     @ApiResponses(value = {

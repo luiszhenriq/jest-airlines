@@ -1,13 +1,11 @@
 package br.com.luis.jest_airlines.service;
 
 
-import br.com.luis.jest_airlines.dto.flight.FlightRequestDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightResponseDTO;
 import br.com.luis.jest_airlines.dto.flight.FlightUpdateDTO;
 import br.com.luis.jest_airlines.dto.seat.SeatResponseDTO;
 import br.com.luis.jest_airlines.infra.exception.IdNotFoundException;
 import br.com.luis.jest_airlines.model.Flight;
-import br.com.luis.jest_airlines.model.Seat;
 import br.com.luis.jest_airlines.repositories.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,26 +21,6 @@ public class FlightService {
     private final FlightRepository repository;
 
 
-    public FlightResponseDTO create(FlightRequestDTO flightRequest) {
-
-        Flight newFlight = new Flight(flightRequest);
-
-        Set<Seat> seats = flightRequest.availableSeats().stream()
-                .map(seatRequestDTO -> {
-                    Seat seat = new Seat();
-                    seat.setNumber(seatRequestDTO.number());
-                    seat.setType(seatRequestDTO.type());
-                    seat.setStatus(seatRequestDTO.status());
-                    seat.setFlight(newFlight);
-                    return seat;
-                }).collect(Collectors.toSet());
-
-        newFlight.setAvailableSeats(seats);
-
-        Flight savedFlight = repository.save(newFlight);
-
-        return flightResponseDTO(savedFlight);
-    }
 
     public Set<FlightResponseDTO> findAll() {
 
