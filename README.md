@@ -31,7 +31,7 @@ The application uses Swagger to document all available endpoints. Access the int
 
 1. Clone the Repository:
 ```bash
-git clone https://github.com/your-username/jest-airlines.git
+git clone https://github.com/luiszhenriq/jest-airlines.git
 ```
 2. Set Up the Database with Docker:
 Make sure Docker is installed and run the following command:
